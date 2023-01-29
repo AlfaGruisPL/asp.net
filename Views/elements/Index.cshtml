@@ -1,0 +1,79 @@
+﻿@model IEnumerable<zpnet.Models.element>
+
+@{
+    ViewData["Title"] = "Lista";
+}
+
+<h1>Lista elementów:</h1>
+
+<p>
+    <a asp-action="Create">
+<button type="button" class="btn btn-success">Dodaj nowy element:</button></a>
+</p>
+<h6>Suma elementów: @Model.Count()
+
+</h6>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Lp.
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.opis)
+            </th>
+            <th>
+                Data stworzenia
+            </th>
+            <th>
+                Miejsca
+            </th>
+            <th>Kategorie:</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+
+ @{int index = 1;}
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                 <span>@index</span>
+               @{ index++;}   
+            </td>
+            <td>
+                @item.getMax(item.nazwa)
+            </td>
+            <td>
+                @item.getMax(item.opis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data_stworzenia)
+            </td>
+            <td>
+                    @if (@item.miejsce != null)
+                    {
+                        @item.miejsce.nazwa
+                    }
+            </td>
+            <td>
+           
+                @foreach (var kategoria in item.kategorie)
+                {
+                 @kategoria.nazwa<span>,</span>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id"><button class="btn btn-primary">Edytuj</button></a> 
+                <a asp-action="Details" asp-route-id="@item.id"><button class="btn btn-info">Szczegóły</button></a> 
+                <a asp-action="Delete" asp-route-id="@item.id"><button class="btn btn-danger">Usuń</button></a>
+            </td>
+        </tr>
+
+}
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<zpnet.Models.kategoria>
+
+@{
+    ViewData["Title"] = "Lista";
+}
+
+<h1>Lista kategorii:</h1>
+
+<p>
+   
+    <a asp-action="Create"> <button type="button" class="btn btn-success">Dodaj nową kategorie:</button></a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwa)
+            </th>
+            <th>Elementów danej kategorii:</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwa)
+            </td>
+            <td>@item.elementy.Count</td>
+            <td>
+            <a asp-action="Edit" asp-route-id="@item.id"><button class="btn btn-primary">Edytuj</button></a> 
+                <a asp-action="Details" asp-route-id="@item.id"><button class="btn btn-info">Szczegóły</button></a> 
+                <a asp-action="Delete" asp-route-id="@item.id"><button class="btn btn-danger">Usuń</button></a>
+         </td>
+        </tr>
+}
+    </tbody>
+</table>
